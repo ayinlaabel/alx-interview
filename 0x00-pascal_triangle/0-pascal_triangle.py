@@ -1,27 +1,22 @@
 #!/usr/bin/python3
-"""Pascal Triangle Interview Challenge"""
+'''
+Module of Pascal's triangle of n
+'''
 
 
 def pascal_triangle(n):
-    """returns a list of lists of numbers
-    representing the pascal triangle"""
-    if n <= 0:
+    '''
+    Returns a list of lists of integers representing the Pascal's triangle of n
+    '''
+
+    if n <= 0:  # if n is not a positive integer
         return []
-
-    pascal_triangle = [0] * n
-
-    for i in range(n):
-        # define a row and fill first and last idx with 1
-        new_row = [0] * (i+1)
-        new_row[0] = 1
-        new_row[len(new_row) - 1] = 1
-
-        for j in range(1, i):
-            if j > 0 and j < len(new_row):
-                a = pascal_triangle[i - 1][j]
-                b = pascal_triangle[i - 1][j - 1]
-                new_row[j] = a + b
-
-        pascal_triangle[i] = new_row
-
-    return pascal_triangle
+    triangle = [[1]]  # initialize the first row of the triangle
+    for i in range(1, n):  # for each row in the triangle
+        row = [1]  # initialize the first element of the row
+        for j in range(1, i):  # for each element in the row
+            row.append(triangle[i-1][j-1] + triangle[i-1][j])
+            # add the two elements to the row
+        row.append(1)  # add the last element to the row
+        triangle.append(row)  # add the row to the triangle
+    return triangle  # return the triangle
